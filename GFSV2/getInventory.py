@@ -97,9 +97,8 @@ class getInventory( object ):
          content = "".join(uid.readlines()).split("\n")
          uid.close()
       except Exception as e:
-         err = e.strerror.errno
          log.error( e )
-         log.error("Return code:                     {:s}\n".format(err))
+         log.error("Return code:                     {:s} | {:s}\n".format(e.strerror, e.errno))
          log.error("Could not download inventory file! Skip this.")
          content = None
 
