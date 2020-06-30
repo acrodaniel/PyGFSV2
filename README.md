@@ -51,7 +51,7 @@ except `wgrib2` which is used for subsetting (if configuration files with subset
 settings are used in `GFSV2_bulk`; see below). After installation you can try
 the installation (no subsetting) by calling:
 
-* `GFSV2_get --step 12 24 --level 700 850 --param tmp_pres --date 2005-01-01`
+* `python GFSV2_get.py --step 12 24 --level 700 850 --param tmp_pres --date 2005-01-01`
 
 
 ## Requirements
