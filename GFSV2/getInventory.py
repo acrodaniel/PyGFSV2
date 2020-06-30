@@ -84,7 +84,7 @@ class getInventory( object ):
    @return Returns an object of type @ref getInventory."""
 
    def __init__( self, config, date, param, typ, levels ):
-      import sys, os, urllib
+      import sys, os, urllib.request, io
 
       inv = date.strftime(os.path.join(config.ftp_baseurl,config.ftp_filename))
       inv = inv.replace("<type>",typ).replace("<param>",param)
@@ -93,12 +93,13 @@ class getInventory( object ):
       logging.debug("Reading {:s}".format(self.invfile))
 
       try:
-         uid = urllib.urlopen(self.invfile)
+         stream = urllib.request.urlopen(self.invfile)
+         uid = io.StringIO(stream.read().decode('utf-8'))
          content = "".join(uid.readlines()).split("\n")
          uid.close()
       except Exception as e:
          logging.error( e )
-         logging.error("Return code:                     {:s} | {:s}\n".format(e.strerror, e.errno))
+         logging.error(f"Return code:                     {e}")
          logging.error("Could not download inventory file! Skip this.")
          content = None
 
