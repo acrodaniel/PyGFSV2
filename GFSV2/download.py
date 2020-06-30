@@ -48,10 +48,10 @@ def download( config, date ):
          if not os.path.exists(outdir): os.makedirs( outdir )
 
          # Create the range string for curl
-         log.info("Downloading inventory information data")
+         logging.info("Downloading inventory information data")
          inv = getInventory(config,date,param,typ,levels)
          if len(inv.entries) == 0:
-            log.info("Inventory empty, skip this file")
+            logging.info("Inventory empty, skip this file")
             continue
 
          # Else extracting block information
@@ -71,16 +71,16 @@ def download( config, date ):
          success = False
          # Download with retries if set
          while retries_left >= 0:
-            log.info("Retries left: {:d}".format(retries_left))
+            logging.info("Retries left: {:d}".format(retries_left))
             try:
                fp=open("{:s}.tmp".format(outfile), "wb")
                c.setopt(pycurl.WRITEDATA, fp)
                c.setopt(c.NOPROGRESS, 0)
                if config.curl_timeout:
-                  log.info("Curl timeout is {:d}".format(config.curl_timeout))
+                  logging.info("Curl timeout is {:d}".format(config.curl_timeout))
                   c.setopt(pycurl.CONNECTTIMEOUT, config.curl_timeout)
                c.setopt(pycurl.FOLLOWLOCATION, 0)
-               log.info("Downloading -> {:s}.tmp".format(outfile))
+               logging.info("Downloading -> {:s}.tmp".format(outfile))
                for i in range(0,len(curlrange)):
                   c.setopt(c.RANGE, curlrange[i])
                   c.perform()
@@ -93,8 +93,8 @@ def download( config, date ):
                success = True
                break
             except Exception as e:
-               log.error("Problems with download")
-               log.error(e)
+               logging.error("Problems with download")
+               logging.error(e)
                retries_left -= 1
                if curllog:
                   now    = dt.now()
@@ -102,7 +102,7 @@ def download( config, date ):
                   curllog.write(" {:s}; {:6d}; {:16s}; {:s}\n".format( nowstr,
                      int((now-timer).seconds),"ftp-error-{:d}".format(e[0]),outfile))
                if config.curl_sleeptime:
-                  log.info("Sleeping {:s} seconds and retry download".format(config.curl_sleeptime))
+                  logging.info("Sleeping {:s} seconds and retry download".format(config.curl_sleeptime))
                   time.sleep( float(config.curl_sleeptime) )
 
          # Only if download was successful:
@@ -110,7 +110,7 @@ def download( config, date ):
             # Subset if requested
             if config.lonsubset is not None:
                import subprocess as sub
-               log.info("Subsetting -> {:s}".format(outfile))
+               logging.info("Subsetting -> {:s}".format(outfile))
                p = sub.Popen(["wgrib2","{:s}.tmp".format(outfile),\
                               "-small_grib",config.lonsubset,config.latsubset,outfile],
                               stdout=sub.PIPE,stderr=sub.PIPE)
@@ -124,7 +124,7 @@ def download( config, date ):
 
          # Sleep if set
          if config.main_sleeptime:
-            log.debug("Sleeping \"{:s}\" seconds before starting next download".format(config.main_sleeptime))
+            logging.debug("Sleeping \"{:s}\" seconds before starting next download".format(config.main_sleeptime))
             time.sleep( float(config.main_sleeptime) )
 
    # Close ftp logfile if opened beforehand

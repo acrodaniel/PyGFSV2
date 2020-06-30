@@ -30,7 +30,7 @@ class readConfig( object ):
       if file is None:
          import pkg_resources
          file = pkg_resources.resource_filename(__package__, 'config/default.conf')
-         log.debug("Loading default config file from package source.")
+         logging.debug("Loading default config file from package source.")
 
       import os, sys, re
       if not os.path.isfile(file): sys.exit("Config fil \"{:s}\" missing".format(file))
@@ -48,8 +48,8 @@ class readConfig( object ):
          for rec in CNF.get("ftp","ifnot_members").split(","):
             self.ftp_ifnot_members.append( rec.strip() )
       except Exception as e:
-         log.error("Problems reading ftp config")
-         log.error(e); sys.exit(9)
+         logging.error("Problems reading ftp config")
+         logging.error(e); sys.exit(9)
 
       # Check if curl logfile is set (logging ftp return codes)
       try:
@@ -101,7 +101,7 @@ class readConfig( object ):
          self.lonsubset = None;    self.latsubset = None;
       if self._lonmin_ is not None:
          if self._lonmin_ >= self._lonmax_ or self._latmin_ >= self._latmax_:
-            log.error("lonmin/lonmax/latmin/latmax wrong! Please check your config file")
+            logging.error("lonmin/lonmax/latmin/latmax wrong! Please check your config file")
             sys.exit()
          self.lonsubset = "{:.2f}:{:.2f}".format(self._lonmin_,self._lonmax_)
          self.latsubset = "{:.2f}:{:.2f}".format(self._latmin_,self._latmax_)
@@ -110,7 +110,7 @@ class readConfig( object ):
       try:
          self.outfile = CNF.get("main","outfile")
       except Exception as e:
-         log.error(e); sys.exit(9)
+         logging.error(e); sys.exit(9)
 
       # Steps to download
       self.steps = []
@@ -131,7 +131,7 @@ class readConfig( object ):
          try:
             mem = CNF.getboolean(sec,"members")
          except Exception as e:
-            log.error(e); sys.exit(9)
+            logging.error(e); sys.exit(9)
          try:
             lev = []
             for rec in CNF.get(sec,"levels").split(","): lev.append( int(rec) )
@@ -140,25 +140,25 @@ class readConfig( object ):
          self.data[ mtch.group(1) ] = {"members":mem,"levels":lev}
       
       # All fine
-      log.info("Config file read, return.")
+      logging.info("Config file read, return.")
 
    # ----------------------------------------------------------------
    # ----------------------------------------------------------------
    def show( self ):
       """!Helper function. Prints content of the config class to console."""
-      log.info("- {:20s} {:s}".format("Output files:",       str(self.outfile)))
-      log.info("- {:20s} {:s}".format("Date range from:",    str(self.main_from)))
-      log.info("- {:20s} {:s}".format("Date range to:",      str(self.main_to)))
-      log.info("- {:20s} {:s}".format("Only month nr:",      str(self.main_only)))
-      log.info("- {:20s} {:s}".format("Forecast steps:",     str(self.steps)))
-      log.info("- {:20s} {:s}".format("Subset lonmin:",      str(self._lonmin_)))
-      log.info("- {:20s} {:s}".format("Subset lonmax:",      str(self._lonmax_)))
-      log.info("- {:20s} {:s}".format("Subset latmin:",      str(self._latmin_)))
-      log.info("- {:20s} {:s}".format("Subset latmax:",      str(self._latmax_)))
-      log.info("- {:20s} {:s}".format("FTP base url:",       str(self.ftp_baseurl)))
-      log.info("- {:20s} {:s}".format("FTP file names:",     str(self.ftp_filename)))
-      log.info("- {:20s} {:s}".format("FTP if members:",     str(self.ftp_if_members)))
-      log.info("- {:20s} {:s}".format("FTP if not members:", str(self.ftp_ifnot_members)))
-      log.info("- {:20s} {:d}".format("[data] parameters defined:",len(self.data)))
+      logging.info("- {:20s} {:s}".format("Output files:",       str(self.outfile)))
+      logging.info("- {:20s} {:s}".format("Date range from:",    str(self.main_from)))
+      logging.info("- {:20s} {:s}".format("Date range to:",      str(self.main_to)))
+      logging.info("- {:20s} {:s}".format("Only month nr:",      str(self.main_only)))
+      logging.info("- {:20s} {:s}".format("Forecast steps:",     str(self.steps)))
+      logging.info("- {:20s} {:s}".format("Subset lonmin:",      str(self._lonmin_)))
+      logging.info("- {:20s} {:s}".format("Subset lonmax:",      str(self._lonmax_)))
+      logging.info("- {:20s} {:s}".format("Subset latmin:",      str(self._latmin_)))
+      logging.info("- {:20s} {:s}".format("Subset latmax:",      str(self._latmax_)))
+      logging.info("- {:20s} {:s}".format("FTP base url:",       str(self.ftp_baseurl)))
+      logging.info("- {:20s} {:s}".format("FTP file names:",     str(self.ftp_filename)))
+      logging.info("- {:20s} {:s}".format("FTP if members:",     str(self.ftp_if_members)))
+      logging.info("- {:20s} {:s}".format("FTP if not members:", str(self.ftp_ifnot_members)))
+      logging.info("- {:20s} {:d}".format("[data] parameters defined:",len(self.data)))
 
 

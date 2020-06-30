@@ -44,7 +44,7 @@ if __name__ == "__main__":
       parser.print_help(); sys.exit(1)
    else:
       if not os.path.isfile( args.config ):
-         log.error("Sorry, cannot find file \"{:s}\". Please check if file exists.")
+         logging.error("Sorry, cannot find file \"{:s}\". Please check if file exists.")
          sys.exit(1)
    
 
@@ -72,7 +72,7 @@ if __name__ == "__main__":
             continue
 
       # Proccessing
-      log.info("Processing date {:s}".format(loopdate.strftime("%Y-%m-%d %HZ")))
+      logging.info("Processing date {:s}".format(loopdate.strftime("%Y-%m-%d %HZ")))
 
       download( config, loopdate )
 
@@ -80,4 +80,4 @@ if __name__ == "__main__":
       loopdate = loopdate + dt.timedelta(1)
 
    if skipped > 0:
-      log.info("\"{0:d}\" files skipped as not in month {1:d} as specified in config file ([main] only).".format(skipped,config.main_only))
+      logging.info("\"{0:d}\" files skipped as not in month {1:d} as specified in config file ([main] only).".format(skipped,config.main_only))

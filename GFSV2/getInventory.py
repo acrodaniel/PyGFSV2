@@ -52,7 +52,7 @@ class inventry( object ):
       elif re.match("^anl$",self.step):
          self.step = 0
       else:
-         log.error("Cannot decode \"{:s}\"".format(self.step))
+         logging.error("Cannot decode \"{:s}\"".format(self.step))
          sys.exit(9)
 
    # ----------------------------------------------------------------
@@ -64,10 +64,10 @@ class inventry( object ):
       else:
          lev = "{:d}".format(self.level)
       if not self.bit_end == "END":
-         log.info("   INV {:10s} {:5s}mb {:3d}  {:10d}-{:10d}".format(self.param,lev,
+         logging.info("   INV {:10s} {:5s}mb {:3d}  {:10d}-{:10d}".format(self.param,lev,
                      self.step, self.bit_start,self.bit_end))
       else:
-         log.info("   INV {:10s} {:5s}mb {:3d}  {:10d}-   END".format(self.param,lev,
+         logging.info("   INV {:10s} {:5s}mb {:3d}  {:10d}-   END".format(self.param,lev,
                      self.step, self.bit_start))
 
 class getInventory( object ):
@@ -90,16 +90,16 @@ class getInventory( object ):
       inv = inv.replace("<type>",typ).replace("<param>",param)
       self.gribfile = "{:s}".format(inv)
       self.invfile  = "{:s}.inv".format(inv)
-      log.debug("Reading {:s}".format(self.invfile))
+      logging.debug("Reading {:s}".format(self.invfile))
 
       try:
          uid = urllib.urlopen(self.invfile)
          content = "".join(uid.readlines()).split("\n")
          uid.close()
       except Exception as e:
-         log.error( e )
-         log.error("Return code:                     {:s} | {:s}\n".format(e.strerror, e.errno))
-         log.error("Could not download inventory file! Skip this.")
+         logging.error( e )
+         logging.error("Return code:                     {:s} | {:s}\n".format(e.strerror, e.errno))
+         logging.error("Could not download inventory file! Skip this.")
          content = None
 
       # If we have got content

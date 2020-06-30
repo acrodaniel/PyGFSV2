@@ -70,7 +70,7 @@ class inputCheck( object ):
          for rec in self.get("dates"): tmp.append( dt.strptime(rec,"%Y-%m-%d") )
          args.dates = tmp
       except:
-         log.error("Input -d/--date: wrong format!")
+         logging.error("Input -d/--date: wrong format!")
          parser.print_help()
          sys.exit(1)
 
