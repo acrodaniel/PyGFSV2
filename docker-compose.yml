@@ -1,8 +1,17 @@
 version: '3.7'
 
+volumes:
+  mainfolder:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${PWD}
+
 services:  
   pygfsv2:
     build: ./container/
     container_name: pygfsv2
     volumes:
-      - ${PWD}:/usr/src/app
+      - mainfolder:/usr/src/app:z
+
