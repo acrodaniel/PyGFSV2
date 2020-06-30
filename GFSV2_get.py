@@ -17,7 +17,7 @@
 
 import logging
 logging.basicConfig(format="# %(levelname)s %(message)s",level=logging.DEBUG)
-log = logging.getLogger()
+logging.getLogger()
 
 # -------------------------------------------------------------------
 # Main part of the script
@@ -42,7 +42,7 @@ if __name__ == "__main__":
    for date in inputs.get("dates"):
 
       # Proccessing
-      log.info("Processing date {:s}".format(date.strftime("%Y-%m-%d %HZ")))
+      logging.info("Processing date {:s}".format(date.strftime("%Y-%m-%d %HZ")))
 
       download( config, date )
 

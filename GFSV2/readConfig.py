@@ -36,7 +36,7 @@ class readConfig( object ):
       if not os.path.isfile(file): sys.exit("Config fil \"{:s}\" missing".format(file))
 
       # Import ConfigParser, read config
-      from ConfigParser import ConfigParser
+      from configparser import ConfigParser
       CNF = ConfigParser(); CNF.read( file )
       config = {}
       self.ftp_if_members = []; self.ftp_ifnot_members = []
