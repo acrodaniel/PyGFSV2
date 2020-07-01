@@ -120,10 +120,3 @@ in the repository called [lisa.conf](lisa.conf). After you have made a copy
 and changed the config specification simply call:
 
 * ``docker-compose run --user 1000:1000 pygfsv2 python GFSV2_bulk --config your_config_file.conf``
-
-
-
-
-
-
-
