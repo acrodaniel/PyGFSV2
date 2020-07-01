@@ -10,9 +10,7 @@
 # - L@ST MODIFIED: 2017-08-13 22:24 on pc31-c707
 # -------------------------------------------------------------------
 
-# Initialize logger
-import logging, logging.config
-log = logging.getLogger("GFSV2.getInventory")
+import logging
 
 class inventry( object ):
    """!Helper object to store inventory data.

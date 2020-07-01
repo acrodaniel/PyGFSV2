@@ -18,8 +18,6 @@
 # -------------------------------------------------------------------
 
 import logging
-logging.basicConfig(format="# %(levelname)s %(message)s",level=logging.DEBUG)
-log = logging.getLogger()
 
 # -------------------------------------------------------------------
 # Main part of the script
@@ -53,6 +51,9 @@ if __name__ == "__main__":
    # ----------------------------------------------------------------
    import datetime as dt
    from GFSV2 import *
+
+   # start logging
+   loggingmodule()
 
    # Read confg file
    config = readConfig( args.config )

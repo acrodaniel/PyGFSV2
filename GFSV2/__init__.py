@@ -8,3 +8,4 @@ from .readConfig         import readConfig
 from .getInventory       import getInventory
 from .inputCheck         import inputCheck
 from .download           import download
+from .loggingmodule      import loggingmodule

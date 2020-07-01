@@ -10,9 +10,7 @@
 # - L@ST MODIFIED: 2017-08-20 10:48 on pc24-c707
 # -------------------------------------------------------------------
 
-# Initialize logger
-import logging, logging.config
-log = logging.getLogger("GFSV2.download")
+import logging
 
 def download( config, date ):
 

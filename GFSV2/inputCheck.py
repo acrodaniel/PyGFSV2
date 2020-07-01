@@ -10,9 +10,7 @@
 # - L@ST MODIFIED: 2017-08-05 10:50 on thinkreto
 # -------------------------------------------------------------------
 
-# Initialize logger
-import logging, logging.config
-log = logging.getLogger("GFSV2.inputCheck")
+import logging
 
 class inputCheck( object ):
    """!Small helper class to parse and handle input arguments to the
