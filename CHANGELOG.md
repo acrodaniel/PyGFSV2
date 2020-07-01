@@ -1,4 +1,6 @@
+# Version 0.2
 
+The project of Retto Stauffer has been updated to Python 3.8. There were problems with wgrib2 and therefore the whole project was moved to a docker container.
 
 # Version 0.1-3
 
