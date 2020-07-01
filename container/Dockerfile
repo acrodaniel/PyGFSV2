@@ -2,7 +2,7 @@ FROM continuumio/anaconda3
 
 ENV PYTHONUNBUFFERED 1
 
-ENV TZ=Europe/Berlin
+ENV TZ=UTC
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
