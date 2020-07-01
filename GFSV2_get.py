@@ -16,7 +16,21 @@
 # -------------------------------------------------------------------
 
 import logging
-logging.basicConfig(format="# %(levelname)s %(message)s",level=logging.DEBUG)
+import logging.config
+import os
+import time
+from datetime import datetime
+
+if not os.path.exists(os.path.join(os.getcwd(), "log")):
+   os.mkdir(os.path.join(os.getcwd(), "log"))
+
+starttime = datetime.now()
+print(starttime)
+logging_cfg_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "GFSV2/config/logging.conf")
+logfile = os.path.join("log", f"logfile-{datetime.now().strftime('%Y-%m-%d')}.log")
+
+logging.config.fileConfig(logging_cfg_file, disable_existing_loggers=False, defaults={"logfilename": logfile})
+logging.Formatter.converter = time.localtime
 logging.getLogger()
 
 # -------------------------------------------------------------------
@@ -45,4 +59,4 @@ if __name__ == "__main__":
       logging.info("Processing date {:s}".format(date.strftime("%Y-%m-%d %HZ")))
 
       download( config, date )
-
+   logging.info("The program has run successfully")
